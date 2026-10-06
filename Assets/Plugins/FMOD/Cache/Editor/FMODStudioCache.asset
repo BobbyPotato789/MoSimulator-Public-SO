@@ -25,7 +25,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters:
   - {fileID: 4466311910430728868}
-  MinDistance: 0.1
+  MinDistance: 2
   MaxDistance: 15
   Length: 0
 --- !u!114 &11400000
@@ -45,16 +45,46 @@ MonoBehaviour:
   - {fileID: 1126205293294479035}
   EditorEvents:
   - {fileID: -7051700153246642517}
+  - {fileID: 344905626464448733}
   EditorParameters: []
   MasterBanks:
   - {fileID: 1126205293294479035}
   StringsBanks:
   - {fileID: 4836703584785925069}
   cacheVersion: 131860
-  cacheTime: 639268434769954217
+  cacheTime: 639268853447531296
   SerializableEventsDict:
   - key: event:/Fuel_Carpet_Impact
     index: 0
+  - key: snapshot:/DriverStation_Muffle
+    index: 1
+--- !u!114 &344905626464448733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/DriverStation_Muffle
+  m_EditorClassIdentifier: 
+  Path: snapshot:/DriverStation_Muffle
+  Guid:
+    Data1: 79667564
+    Data2: 1197075846
+    Data3: 621001917
+    Data4: -1219838141
+  Banks:
+  - {fileID: 1126205293294479035}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &1126205293294479035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,10 +100,10 @@ MonoBehaviour:
   Path: ../../../../../FMOD Projects/MoSim 25/SoundModV25/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639268434769939163
+  lastModified: 639268853447511294
   FileSizes:
   - Name: Desktop
-    Value: 130528
+    Value: 132192
   Exists: 1
 --- !u!114 &4466311910430728868
 MonoBehaviour:
@@ -114,8 +144,8 @@ MonoBehaviour:
   Path: ../../../../../FMOD Projects/MoSim 25/SoundModV25/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639268434769954217
+  lastModified: 639268853447531296
   FileSizes:
   - Name: Desktop
-    Value: 932
+    Value: 994
   Exists: 1

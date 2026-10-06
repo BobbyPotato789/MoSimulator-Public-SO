@@ -6,14 +6,20 @@ public class FakeFuelLauncher : MonoBehaviour
     public GameObject fuelPrefab;
     public Transform[] spawnPoints; 
 
-    [Header("Launch Physics")]
-    public float launchVelocity = 8.0f; 
-    public float upwardAngle = 35.0f; 
+    [Header("Launch Physics Baseline")]
+    public float baseLaunchVelocity = 8.0f; 
+    public float baseUpwardAngle = 35.0f; 
+
+    [Header("Randomization Settings (Realism)")]
+    [Tooltip("How many degrees up or down the angle can deviate.")]
+    public float pitchVariance = 2.0f; 
+    [Tooltip("How many degrees left or right the ball can veer.")]
+    public float spreadVariance = 1.5f; 
+    [Tooltip("How much faster or slower (m/s) the ball can exit.")]
+    public float velocityVariance = 0.5f; 
 
     [Header("Firing Logic")]
-    [Tooltip("Minimum Balls Per Second (e.g., 20)")]
     public float minBPS = 28.0f; 
-    [Tooltip("Maximum Balls Per Second (e.g., 34)")]
     public float maxBPS = 34.0f; 
     
     [Header("Hopper Settings")]
@@ -25,7 +31,6 @@ public class FakeFuelLauncher : MonoBehaviour
 
     void Update()
     {
-        // Reload logic
         if (Input.GetKeyDown(KeyCode.R))
         {
             ballsFired = 0;
@@ -38,7 +43,6 @@ public class FakeFuelLauncher : MonoBehaviour
             FireSingleBall();
             ballsFired++; 
 
-            // Calculate the delay for the NEXT ball based on a randomized BPS
             float currentBPS = Random.Range(minBPS, maxBPS);
             float fireInterval = 1.0f / currentBPS;
             
@@ -63,8 +67,20 @@ public class FakeFuelLauncher : MonoBehaviour
         Rigidbody rb = fuel.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 launchDirection = Quaternion.AngleAxis(-upwardAngle, spawnLoc.right) * spawnLoc.forward;
-            rb.AddForce(launchDirection * launchVelocity, ForceMode.VelocityChange);
+            // Calculate randomized physics variables for this specific ball
+            float randomSpeed = baseLaunchVelocity + Random.Range(-velocityVariance, velocityVariance);
+            float randomPitch = baseUpwardAngle + Random.Range(-pitchVariance, pitchVariance);
+            float randomYaw = Random.Range(-spreadVariance, spreadVariance);
+
+            // Apply the randomized Pitch (Up/Down) and Yaw (Left/Right)
+            Quaternion pitchRotation = Quaternion.AngleAxis(-randomPitch, spawnLoc.right);
+            Quaternion yawRotation = Quaternion.AngleAxis(randomYaw, spawnLoc.up);
+            
+            // Combine rotations with the spawn point's forward facing direction
+            Vector3 launchDirection = yawRotation * pitchRotation * spawnLoc.forward;
+
+            // Fire the ball
+            rb.AddForce(launchDirection * randomSpeed, ForceMode.VelocityChange);
         }
     }
 }
