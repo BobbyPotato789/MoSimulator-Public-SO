@@ -21,6 +21,8 @@ TagManager:
   - Cage
   - ReefFace
   - RecordingCamera
+  - FUEL
+  - Floor
   layers:
   - Default
   - TransparentFX
